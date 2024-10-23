@@ -61,38 +61,12 @@ class Particle {
     myY = (float)(Math.random()*500);
   }
   void walk(){
-    //if (Math.abs(mouseX - myX) > Math.abs(mouseY - myY)){
-    //  if (myX > mouseX){
-    //    myX += (myX-mouseX)/5;
-    //  }
-      
-    //  if (myX < mouseX){
-    //    myX = myX + (int)(Math.random()*10)-3;
-    //  }
-    //}else{
-    //  if (myY > mouseY){
-    //    myY = myY + (int)(Math.random()*10)-7;
-    //  }
-    
-    //  if (myY < mouseY){
-    //    myY = myY + (int)(Math.random()*10)-3;
-    //  }
-    //}
-    //if (Math.abs(myX-mouseX) <= 100){
-    //  myX -= 1;
-    //}else{
-    //}
-    //if (Math.abs(myY-mouseY) <= 100){
-    //  myY -= 1;
-    //}else{
-    //}
-    
     if (attract == true){
-      myX -= (myX-mouseX)/500;
-      myY -= (myY-mouseY)/500;
+      myX -= (myX-mouseX)/300;
+      myY -= (myY-mouseY)/300;
     }else{
-      myX += (myX-mouseX)/500;
-      myY += (myY-mouseY)/500;
+      myX += (myX-mouseX)/300;
+      myY += (myY-mouseY)/300;
     }
     myX += (int)(Math.random()*5)-2;
     myY += (int)(Math.random()*5)-2;
