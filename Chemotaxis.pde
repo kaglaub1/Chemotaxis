@@ -88,11 +88,11 @@ class Particle {
     //}
     
     if (attract == true){
-      myX -= (myX-mouseX)/100;
-      myY -= (myY-mouseY)/100;
+      myX -= (myX-mouseX)/500;
+      myY -= (myY-mouseY)/500;
     }else{
-      myX += (myX-mouseX)/100;
-      myY += (myY-mouseY)/100;
+      myX += (myX-mouseX)/500;
+      myY += (myY-mouseY)/500;
     }
     myX += (int)(Math.random()*5)-2;
     myY += (int)(Math.random()*5)-2;
