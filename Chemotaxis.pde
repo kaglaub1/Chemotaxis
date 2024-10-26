@@ -1,5 +1,5 @@
 Particle bacteria[];
-boolean attract = true;
+int score = 0;
 void setup(){
   size(500, 500);
   
@@ -9,46 +9,34 @@ void setup(){
   }
 }
 void draw(){
-  background(200);
-  for (int i = 300; i > 0; i--){
-    fill(130+(i/3), 130+(i/3), 255);
-    noStroke();
-    ellipse(mouseX, mouseY, 5*i, 5*i);
-  }
+  background(0);
+  fill(#FFFF00);
+  arc(mouseX, mouseY, 40, 40, PI+QUARTER_PI, TWO_PI);
+  arc(mouseX, mouseY, 40, 40, 0, HALF_PI+QUARTER_PI);
   for (int i = 0; i < bacteria.length; i++){
     bacteria[i].walk();
     bacteria[i].show();
     
   }
-  fill(0);
+  fill(#505AFF);
   textAlign(CENTER);
   textSize(30);
-  if (attract == true){
-    text("attract", 250, 470);
-  }else{
-    text("repel", 250, 470);
-  }
+    text("score: " + score + "/100", 250, 470);
+
   
   
   textSize(15);
-  text("spacebar to change, click to reset", 250, 490); 
+  text("spacebar to reset", 250, 490); 
 }
 void keyPressed(){
   if (key == ' '){
-    if (attract == true){
-      attract = false;
-    }else{
-      attract = true;
+    score = 0;
+    for (int i = 0; i < bacteria.length; i++){
+      bacteria[i].myX = (float)(Math.random()*500);
+      bacteria[i].myY = (float)(Math.random()*500);
     }
   }
 }
-void mousePressed(){
-  for (int i = 0; i < bacteria.length; i++){
-    bacteria[i].myX = (float)(Math.random()*500);
-    bacteria[i].myY = (float)(Math.random()*500);
-  }
-}
-
 
 
 class Particle {
@@ -57,25 +45,28 @@ class Particle {
   Particle(){
     color1 = (int)(Math.random()*60)-30;
     color2 = (int)(Math.random()*60)-30;
-    myX = (float)(Math.random()*500);
-    myY = (float)(Math.random()*500);
+    myX = (int)(Math.random()*500);
+    myY = (int)(Math.random()*500);
   }
   void walk(){
-    if (attract == true){
-      myX -= (myX-mouseX)/300;
-      myY -= (myY-mouseY)/300;
-    }else{
-      myX += (myX-mouseX)/300;
-      myY += (myY-mouseY)/300;
-    }
-    myX += (int)(Math.random()*5)-2;
-    myY += (int)(Math.random()*5)-2;
+      myX += (int)((myX-mouseX)/100);
+      myY += (int)((myY-mouseY)/100);
+      myX += (int)(Math.random()*5)-2;
+      myY += (int)(Math.random()*5)-2;
+      if (myX > mouseX-20 && myX < mouseX+20){
+        if (myY > mouseY-20 && myY < mouseY+20){
+          score += 1;
+          myX = 1000;
+          myY = 1000;
+        }
+      }
     
     
     
   }
   void show(){
-    fill(150 + color1, 25, 150 + color2);
-    ellipse(myX, myY, 10, 10);
+    fill(#FFFACE);
+    noStroke();
+    rect(myX, myY, 4, 4);
   }
 }
