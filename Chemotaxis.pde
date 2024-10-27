@@ -11,8 +11,8 @@ void setup(){
 void draw(){
   background(0);
   fill(#FFFF00);
-  arc(mouseX, mouseY, 40, 40, PI+QUARTER_PI, TWO_PI);
-  arc(mouseX, mouseY, 40, 40, 0, HALF_PI+QUARTER_PI);
+  arc(mouseX, mouseY, 40, 40, PI+QUARTER_PI-0.25, TWO_PI);
+  arc(mouseX, mouseY, 40, 40, 0, HALF_PI+QUARTER_PI+0.25);
   for (int i = 0; i < bacteria.length; i++){
     bacteria[i].walk();
     bacteria[i].show();
@@ -21,7 +21,7 @@ void draw(){
   fill(#505AFF);
   textAlign(CENTER);
   textSize(30);
-    text("score: " + score + "/100", 250, 470);
+    text("SCORE: " + score + "/100", 250, 470);
 
   
   
@@ -32,8 +32,8 @@ void keyPressed(){
   if (key == ' '){
     score = 0;
     for (int i = 0; i < bacteria.length; i++){
-      bacteria[i].myX = (float)(Math.random()*500);
-      bacteria[i].myY = (float)(Math.random()*500);
+      bacteria[i].myX = (float)(Math.random()*480)+10;
+      bacteria[i].myY = (float)(Math.random()*480)+10;
     }
   }
 }
@@ -49,8 +49,8 @@ class Particle {
     myY = (int)(Math.random()*500);
   }
   void walk(){
-      myX += (int)((myX-mouseX)/100);
-      myY += (int)((myY-mouseY)/100);
+      myX += (int)((myX-mouseX)/300);
+      myY += (int)((myY-mouseY)/300);
       myX += (int)(Math.random()*5)-2;
       myY += (int)(Math.random()*5)-2;
       if (myX > mouseX-20 && myX < mouseX+20){
@@ -60,8 +60,14 @@ class Particle {
           myY = 1000;
         }
       }
-    
-    
+      if ((myX > 500 && myX < 550) || (myX < 0 && myX > -50)){
+        if ((myY > 500 && myY < 550) || (myY < 0 && myY > -50)){
+          myX = 1000;
+          myY = 1000;
+        }
+      }
+      
+      
     
   }
   void show(){
